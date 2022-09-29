@@ -3,7 +3,6 @@ from sklearn import datasets
 import pandas as pd
 
 mlflow.set_tracking_uri('http://127.0.0.1:5000')
-# mlflow.set_experiment("tutorial")
 
 model_name = "rfc"
 model_version = 1
