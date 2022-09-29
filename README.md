@@ -44,7 +44,17 @@ Each project is simply a directory of files, or a Git repository, containing you
 
 - Name - project name.
 - Entry Points - Commands that can be run within the project, and information about their parameters.
-- Environment - 
+- Environment - The software environment that should be used to execute project entry points. This includes all library dependencies required by the project code.
+
+Run project using:
+
+- *MLproject* file from current dir,
+- local venv (by default conda must be provided),
+- run name set to *tutorial*:
+
+```console
+mlflow run . --env-manager local --run-name tutorial
+```
 
 ## mypy
 

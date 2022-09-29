@@ -19,9 +19,8 @@ import logging
 
 logging.basicConfig(level=logging.WARN)
 logger = logging.getLogger(__name__)
-# mlflow.set_tracking_uri(
-#     'http://127.0.0.1:5000')
-# mlflow.set_experiment("tutorial")
+mlflow.set_tracking_uri('http://127.0.0.1:5000')
+mlflow.set_experiment("tutorial")
 
 # print(mlflow.get_registry_uri())
 
@@ -88,8 +87,8 @@ def main():
     train_y = train[["quality"]]
     # test_y = test[["quality"]]
 
-    alpha = float(sys.argv[1])
-    l1_ratio = float(sys.argv[2])
+    alpha = float(sys.argv[1]) if len(sys.argv) > 1 else 0.5
+    l1_ratio = float(sys.argv[2]) if len(sys.argv) > 2 else 0.5
 
     mlflow.sklearn.autolog()
 
