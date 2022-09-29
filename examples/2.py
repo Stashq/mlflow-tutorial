@@ -18,8 +18,11 @@ import logging
 
 logging.basicConfig(level=logging.WARN)
 logger = logging.getLogger(__name__)
-mlflow.set_tracking_uri(
-    'http://127.0.0.1:5000')
+# mlflow.set_tracking_uri(
+#     'http://127.0.0.1:5000')
+# mlflow.set_experiment("tutorial")
+
+print(mlflow.get_registry_uri())
 
 
 def eval_metrics(
@@ -89,7 +92,6 @@ def main():
 
     mlflow.sklearn.autolog()
 
-    mlflow.set_experiment("tutorial")
     with mlflow.start_run():
         mlflow.set_tag("mlflow.runName", "run_name")
 

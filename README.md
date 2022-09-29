@@ -12,7 +12,7 @@ Input example - as name says; also stored as artifact.
 
 MLmodel file - yaml that outlines multiple flavours the model can be viewed, model signature and input example.  
 
-## Usage
+### Usage
 
 There are few options how to store artifacts (logs, models, plots, ect.).
 Default these will be stored in `mlruns` folder.
@@ -34,6 +34,17 @@ Add line to your python code:
 ```python
 mlflow.set_tracking_uri('http://127.0.0.1:5000')
 ```
+
+### MLflow project
+
+MLflow Projects are just a convention for organizing and describing your code to let other data scientists (or automated tools) run it.
+Each project is simply a directory of files, or a Git repository, containing your code.
+
+*MLproject* file, which is a YAML formatted text file. Each project can specify several properties:
+
+- Name - project name.
+- Entry Points - Commands that can be run within the project, and information about their parameters.
+- Environment - 
 
 ## mypy
 
