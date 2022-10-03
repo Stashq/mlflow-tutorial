@@ -26,7 +26,7 @@ You can also use sqlite for logs.
 First run mlflow server with command:
 
 ```console
-mlflow server --backend-store-uri sqlite:///mlflow.sqlite  --default-artifact-root ./mlruns
+mlflow server --backend-store-uri sqlite:///mlflow.sqlite  --default-artifact-root ./artifacts
 ```
 
 Add line to your python code:
@@ -94,3 +94,11 @@ Convert relative imports to absolute imports.
 ## Coverage
 
 Measures code coverage, typically during test execution.
+
+## DVC
+
+Add google drive as default (-d) remote server to store data:
+
+```console
+dvc remote add -d myremote gdrive://0AIac4JZqHhKmUk9PDA
+```
