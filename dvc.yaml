@@ -1,0 +1,56 @@
+stages:
+  prepare:
+    cmd: python dvc_tutorial/prepare.py data/data.xml
+    deps:
+    - data/data.xml
+    - dvc_tutorial/prepare.py
+    params:
+    - prepare.seed
+    - prepare.split
+    outs:
+    - data/prepared
+  featurize:
+    cmd: python dvc_tutorial/featurization.py data/prepared data/features
+    deps:
+    - data/prepared
+    - dvc_tutorial/featurization.py
+    params:
+    - featurize.max_features
+    - featurize.ngrams
+    outs:
+    - data/features
+  train:
+    cmd: python dvc_tutorial/train.py data/features dvc_artifacts/model.pkl
+    deps:
+    - data/features
+    - dvc_tutorial/train.py
+    params:
+    - train.seed
+    - train.n_est
+    - train.min_split
+    outs:
+    - dvc_artifacts/model.pkl
+  evaluate:
+    cmd: python dvc_tutorial/evaluate.py dvc_artifacts/model.pkl data/features
+    deps:
+    - data/features
+    - dvc_artifacts/model.pkl
+    - dvc_tutorial/evaluate.py
+    metrics:
+    - evaluation.json:
+        cache: false
+    plots:
+    - evaluation/importance.png
+    - evaluation/plots/confusion_matrix.json:
+        cache: false
+        template: confusion
+        x: actual
+        y: predicted
+    - evaluation/plots/precision_recall.json:
+        cache: false
+        x: recall
+        y: precision
+    - evaluation/plots/roc.json:
+        cache: false
+        x: fpr
+        y: tpr

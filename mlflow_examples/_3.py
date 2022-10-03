@@ -7,6 +7,7 @@ import numpy as np
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import ElasticNet
+
 # from sklearn.dummy import DummyRegressor
 
 # from urllib.parse import urlparse
@@ -19,7 +20,7 @@ import logging
 
 logging.basicConfig(level=logging.WARN)
 logger = logging.getLogger(__name__)
-mlflow.set_tracking_uri('http://127.0.0.1:5000')
+mlflow.set_tracking_uri("http://127.0.0.1:5000")
 mlflow.set_experiment("tutorial")
 
 # print(mlflow.get_registry_uri())

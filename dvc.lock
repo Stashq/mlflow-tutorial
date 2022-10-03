@@ -1,0 +1,87 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python dvc_tutorial/prepare.py data/data.xml
+    deps:
+    - path: data/data.xml
+      md5: 22a1a2931c8370d3aeedd7183606fd7f
+      size: 14445097
+    - path: dvc_tutorial/prepare.py
+      md5: f09ea0c15980b43010257ccb9f0055e2
+      size: 1576
+    params:
+      params.yaml:
+        prepare.seed: 20170428
+        prepare.split: 0.2
+    outs:
+    - path: data/prepared
+      md5: 153aad06d376b6595932470e459ef42a.dir
+      size: 8437363
+      nfiles: 2
+  featurize:
+    cmd: python dvc_tutorial/featurization.py data/prepared data/features
+    deps:
+    - path: data/prepared
+      md5: 153aad06d376b6595932470e459ef42a.dir
+      size: 8437363
+      nfiles: 2
+    - path: dvc_tutorial/featurization.py
+      md5: 264dc9f1f25bb30c87fa18b1ca4fea9d
+      size: 2504
+    params:
+      params.yaml:
+        featurize.max_features: 100
+        featurize.ngrams: 1
+    outs:
+    - path: data/features
+      md5: f8f5cbc3188008a7542d02d63054d9d2.dir
+      size: 1556290
+      nfiles: 2
+  train:
+    cmd: python dvc_tutorial/train.py data/features dvc_artifacts/model.pkl
+    deps:
+    - path: data/features
+      md5: f8f5cbc3188008a7542d02d63054d9d2.dir
+      size: 1556290
+      nfiles: 2
+    - path: dvc_tutorial/train.py
+      md5: e1c093f6437fa14605a9d630086d5f44
+      size: 980
+    params:
+      params.yaml:
+        train.min_split: 0.01
+        train.n_est: 50
+        train.seed: 20170428
+    outs:
+    - path: dvc_artifacts/model.pkl
+      md5: e5afe4ee3eb89290419c389e992ccbf5
+      size: 1670980
+  evaluate:
+    cmd: python dvc_tutorial/evaluate.py dvc_artifacts/model.pkl data/features
+    deps:
+    - path: data/features
+      md5: f8f5cbc3188008a7542d02d63054d9d2.dir
+      size: 1556290
+      nfiles: 2
+    - path: dvc_artifacts/model.pkl
+      md5: e5afe4ee3eb89290419c389e992ccbf5
+      size: 1670980
+    - path: dvc_tutorial/evaluate.py
+      md5: d6f8719bc9f2d5d0351fe58d0128ec54
+      size: 2333
+    outs:
+    - path: evaluation.json
+      md5: c75c857c8efd2832d3423b0d8c0a560e
+      size: 73
+    - path: evaluation/importance.png
+      md5: 552ed056b005f56edc51d08ab8304698
+      size: 29454
+    - path: evaluation/plots/confusion_matrix.json
+      md5: 38c0fe3deeb244747ead298413feca52
+      size: 122246
+    - path: evaluation/plots/precision_recall.json
+      md5: 36392f50cfb5091d475eb5b9e4925d0a
+      size: 150525
+    - path: evaluation/plots/roc.json
+      md5: 106e9229c219dd83529df6bbe7fa17ef
+      size: 45011

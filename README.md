@@ -102,3 +102,11 @@ Add google drive as default (-d) remote server to store data:
 ```console
 dvc remote add -d myremote gdrive://0AIac4JZqHhKmUk9PDA
 ```
+
+```console
+dvc run -n featurize  \
+    -p featurize.max_features,featurize.ngrams \
+    -d src/featurization.py -d data/data.xml \
+    -o data/features \
+    python src/featurization.py data/prepared data/features
+```
