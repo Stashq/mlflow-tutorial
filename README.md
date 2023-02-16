@@ -95,18 +95,13 @@ Convert relative imports to absolute imports.
 
 Measures code coverage, typically during test execution.
 
-## DVC
+## Typer
 
-Add google drive as default (-d) remote server to store data:
+Library to write CLI app.  
 
-```console
-dvc remote add -d myremote gdrive://0AIac4JZqHhKmUk9PDA
-```
+```python
+def main(name: str = typer.Argument("World", help="Who to greet"):
+    ...
 
-```console
-dvc run -n featurize  \
-    -p featurize.max_features,featurize.ngrams \
-    -d src/featurization.py -d data/data.xml \
-    -o data/features \
-    python src/featurization.py data/prepared data/features
+typer.run(main)
 ```
